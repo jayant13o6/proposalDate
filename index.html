@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>💌 Important Message!</title>
+  <!-- name is injected from ?name=YourName in the URL -->
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
     body {
       min-height: 100vh;
       background: linear-gradient(135deg, #ffb3c6 0%, #ffd6e7 50%, #ffb3c6 100%);
@@ -19,21 +30,37 @@
       position: relative;
       overflow: hidden;
     }
+
     .hearts-bg {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none; overflow: hidden; z-index: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
     }
+
     .floating-heart {
       position: absolute;
       animation: floatUp 6s linear infinite;
       opacity: 0;
     }
+
     @keyframes floatUp {
-      0% { opacity: 0; transform: translateY(100vh) rotate(0deg); }
+      0% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(0deg);
+      }
       10% { opacity: 0.6; }
       90% { opacity: 0.3; }
-      100% { opacity: 0; transform: translateY(-80px) rotate(20deg); }
+      100% {
+        opacity: 0;
+        transform: translateY(-80px) rotate(20deg);
+      }
     }
+
     .window {
       background: #c0c0c0;
       border-top: 2px solid #ffffff;
@@ -48,11 +75,20 @@
       z-index: 10;
       animation: popIn 0.2s ease-out;
     }
+
     @keyframes popIn {
-      0% { transform: scale(0.7); opacity: 0; }
+      0% {
+        transform: scale(0.7);
+        opacity: 0;
+      }
+
       80% { transform: scale(1.05); }
-      100% { transform: scale(1); opacity: 1; }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
+
     .title-bar {
       background: linear-gradient(to right, #c2006e, #ff69b4);
       color: #ffffff;
@@ -64,49 +100,109 @@
       font-weight: bold;
       user-select: none;
     }
-    .title-bar-text { display: flex; align-items: center; gap: 6px; }
-    .title-buttons { display: flex; gap: 2px; }
+
+    .title-bar-text {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .title-buttons {
+      display: flex;
+      gap: 2px;
+    }
+
     .title-btn {
-      width: 16px; height: 14px;
+      width: 16px;
+      height: 14px;
       background: #c0c0c0;
       border-top: 1px solid #ffffff;
       border-left: 1px solid #ffffff;
       border-right: 1px solid #808080;
       border-bottom: 1px solid #808080;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 9px; color: #000; cursor: pointer; font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: #000;
+      cursor: pointer;
+      font-weight: bold;
     }
-    .window-body { padding: 16px 16px 14px; }
+
+    .window-body {
+      padding: 16px 16px 14px;
+    }
+
     .message-area {
-      display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 16px;
     }
-    .big-emoji { font-size: 42px; flex-shrink: 0; line-height: 1; }
-    .message-text { font-size: 12px; color: #000; line-height: 1.6; }
-    .message-text .title { font-weight: bold; font-size: 13px; color: #9b004e; margin-bottom: 5px; }
+
+    .big-emoji {
+      font-size: 42px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .message-text {
+      font-size: 12px;
+      color: #000;
+      line-height: 1.6;
+    }
+
+    .message-text .title {
+      font-weight: bold;
+      font-size: 13px;
+      color: #9b004e;
+      margin-bottom: 5px;
+    }
+
     .divider {
-      height: 1px; background: #808080;
-      box-shadow: 0 1px 0 #ffffff; margin-bottom: 12px;
+      height: 1px;
+      background: #808080;
+      box-shadow: 0 1px 0 #ffffff;
+      margin-bottom: 12px;
     }
-    .button-row { display: flex; justify-content: center; gap: 10px; }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
     .win-btn {
-      min-width: 75px; padding: 4px 12px;
+      min-width: 75px;
+      padding: 4px 12px;
       background: #c0c0c0;
       border-top: 2px solid #ffffff;
       border-left: 2px solid #ffffff;
       border-right: 2px solid #808080;
       border-bottom: 2px solid #808080;
       font-family: 'Tahoma', 'Arial', sans-serif;
-      font-size: 11px; color: #000; cursor: pointer; text-align: center; outline: none;
+      font-size: 11px;
+      color: #000;
+      cursor: pointer;
+      text-align: center;
+      outline: none;
     }
+
     .win-btn:active {
-      border-top: 2px solid #808080; border-left: 2px solid #808080;
-      border-right: 2px solid #ffffff; border-bottom: 2px solid #ffffff;
-      padding-top: 5px; padding-left: 13px;
+      border-top: 2px solid #808080;
+      border-left: 2px solid #808080;
+      border-right: 2px solid #ffffff;
+      border-bottom: 2px solid #ffffff;
+      padding-top: 5px;
+      padding-left: 13px;
     }
+
     .win-btn.yes-btn {
-      border: 2px solid #000; background: #ffe0f0;
+      border: 2px solid #000;
+      background: #ffe0f0;
       box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #808080;
     }
+
     .win-btn.yes-btn:active {
       box-shadow: inset 1px 1px 0 #808080, inset -1px -1px 0 #ffffff;
     }
@@ -114,49 +210,110 @@
     /* Celebration overlay */
     .celebration {
       display: none;
-      position: fixed; inset: 0; z-index: 20;
-      background: rgba(255,182,193,0.2);
-      align-items: center; justify-content: center;
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      background: rgba(255, 182, 193, 0.2);
+      align-items: center;
+      justify-content: center;
       flex-direction: column;
     }
-    .celebration.show { display: flex; }
+
+    .celebration.show {
+      display: flex;
+    }
+
     .celeb-window {
       background: #c0c0c0;
-      border-top: 2px solid #ffffff; border-left: 2px solid #ffffff;
-      border-right: 2px solid #808080; border-bottom: 2px solid #808080;
-      box-shadow: 3px 3px 0 #000; min-width: 320px; max-width: 370px;
+      border-top: 2px solid #ffffff;
+      border-left: 2px solid #ffffff;
+      border-right: 2px solid #808080;
+      border-bottom: 2px solid #808080;
+      box-shadow: 3px 3px 0 #000;
+      min-width: 320px;
+      max-width: 370px;
       animation: popIn 0.3s ease-out;
     }
+
     .celeb-title {
       background: linear-gradient(to right, #c2006e, #ff69b4);
-      color: #fff; padding: 3px 6px; font-weight: bold; font-size: 11px;
-      display: flex; justify-content: space-between; align-items: center;
+      color: #fff;
+      padding: 3px 6px;
+      font-weight: bold;
+      font-size: 11px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .celeb-body { padding: 20px; text-align: center; }
-    .celeb-emoji { font-size: 44px; margin-bottom: 10px; animation: bounce 0.5s infinite alternate; }
-    @keyframes bounce { from { transform: scale(1); } to { transform: scale(1.15); } }
-    .celeb-text { font-size: 15px; font-weight: bold; color: #9b004e; margin-bottom: 6px; }
-    .celeb-sub { font-size: 11px; color: #555; margin-bottom: 16px; line-height: 1.7; }
+
+    .celeb-body {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .celeb-emoji {
+      font-size: 44px;
+      margin-bottom: 10px;
+      animation: bounce 0.5s infinite alternate;
+    }
+
+    @keyframes bounce {
+      from {
+        transform: scale(1);
+      }
+
+      to {
+        transform: scale(1.15);
+      }
+    }
+
+    .celeb-text {
+      font-size: 15px;
+      font-weight: bold;
+      color: #9b004e;
+      margin-bottom: 6px;
+    }
+
+    .celeb-sub {
+      font-size: 11px;
+      color: #555;
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+
     .ok-btn {
-      padding: 5px 28px; background: #ffe0f0;
-      border-top: 2px solid #fff; border-left: 2px solid #fff;
-      border-right: 2px solid #808080; border-bottom: 2px solid #808080;
+      padding: 5px 28px;
+      background: #ffe0f0;
+      border-top: 2px solid #fff;
+      border-left: 2px solid #fff;
+      border-right: 2px solid #808080;
+      border-bottom: 2px solid #808080;
       border: 2px solid #000;
-      font-size: 11px; font-family: 'Tahoma',sans-serif; cursor: pointer;
+      font-size: 11px;
+      font-family: 'Tahoma', sans-serif;
+      cursor: pointer;
       box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #808080;
     }
+
     .ok-btn:active {
-      border-top: 2px solid #808080; border-left: 2px solid #808080;
-      border-right: 2px solid #ffffff; border-bottom: 2px solid #ffffff;
+      border-top: 2px solid #808080;
+      border-left: 2px solid #808080;
+      border-right: 2px solid #ffffff;
+      border-bottom: 2px solid #ffffff;
       box-shadow: inset 1px 1px 0 #808080, inset -1px -1px 0 #ffffff;
     }
 
     canvas#fw {
-      position: fixed; inset: 0; pointer-events: none; z-index: 15;
-      width: 100%; height: 100%;
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 15;
+      width: 100%;
+      height: 100%;
     }
   </style>
 </head>
+
 <body>
 
   <div class="hearts-bg" id="heartsBg"></div>
@@ -165,14 +322,17 @@
   <div class="window" id="mainDialog">
     <div class="title-bar">
       <div class="title-bar-text">💌 Important Message!</div>
-      <div class="title-buttons"><div class="title-btn">✕</div></div>
+      <div class="title-buttons">
+        <div class="title-btn">✕</div>
+      </div>
     </div>
     <div class="window-body">
       <div class="message-area">
         <div class="big-emoji" id="dialogEmoji">🥺</div>
         <div class="message-text">
           <div class="title" id="dialogTitle">Will you go on a date with me? 💕</div>
-          <div id="dialogBody">I promise I'll be on my best behaviour! 🌹<br>We could get coffee, ice cream, stargaze...<br><br>Please say yes? 🙏✨</div>
+          <div id="dialogBody">I promise I'll be on my best behaviour! 🌹<br>We could get coffee, ice cream,
+            stargaze...<br><br>Please say yes? 🙏✨</div>
         </div>
       </div>
       <div class="divider"></div>
@@ -192,22 +352,41 @@
       <div class="celeb-body">
         <div class="celeb-emoji">🥳💖🎆</div>
         <div class="celeb-text">She said YES!!!</div>
-        <div class="celeb-sub">This is literally the best day ever! 🌸🦋✨<br>Get ready for the most magical date! 💫🌹</div>
+        <div class="celeb-sub">This is literally the best day ever! 🌸🦋✨<br>Get ready for the most magical date! 💫🌹
+        </div>
         <button class="ok-btn" onclick="closeCeleb()">Woohoo! 🎊</button>
       </div>
     </div>
   </div>
 
   <script>
+    // --- URL param: ?name=Priya ---
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('name') ? params.get('name').trim() : null;
+    const hey = name ? name + ',' : '';
+    const nameStr = name ? ', ' + name : '';
+
+    // Inject name into initial dialog on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      if (name) {
+        document.title = '\u{1F48C} Hey ' + name + '!';
+        document.getElementById('dialogTitle').textContent = 'Hey ' + name + '! Will you go on a date with me? \u{1F495}';
+        document.getElementById('dialogBody').innerHTML =
+          'I promise I\u2019ll be on my best behaviour! \u{1F339}<br>We could get coffee, ice cream, stargaze...<br><br>Please say yes' + nameStr + '? \u{1F64F}\u2728';
+        document.querySelector('.celeb-sub').innerHTML =
+          'This is literally the best day ever' + nameStr + '! \u{1F338}\u{1F98B}\u2728<br>Get ready for the most magical date! \u{1F4AB}\u{1F339}';
+      }
+    });
+
     const noMessages = [
-      { emoji: "😢", title: "Wait wait wait... 🙈", body: "Did you mean to click that? 🤔<br>Your mouse must have slipped!<br>I believe in accidents. Give me another chance? 🥺💕" },
-      { emoji: "😭", title: "Noooo please!! 💔", body: "Okay okay I'll carry all the bags 🛍️<br>AND pay for everything 💸<br>AND pick up the tab at dessert too 🍰<br>Still no? 😰" },
-      { emoji: "🐶", title: "Even my dog wants you to say yes 🐾", body: "He practiced his puppy eyes just for this moment 🥹<br>He'll be SO disappointed if you say no again...<br>Don't break his tiny heart! 🐕💕" },
-      { emoji: "🌟", title: "The stars aligned just for us ✨", body: "NASA confirmed: the universe sent a sign 🔭<br>Ignoring cosmic forces is illegal in 12 galaxies 🪐<br>Let's not cause an intergalactic incident 😅🚀" },
-      { emoji: "🍕", title: "Free pizza is involved 🍕", body: "I probably should have mentioned this earlier...<br>The date includes unlimited pizza 🍕🍕🍕<br>And garlic bread. Lots of it 🧄<br>Reconsidering? 👀" },
-      { emoji: "😤", title: "Okay final offer 🤝", body: "I'll watch your favourite movie 🎬<br>Even if it's a 4-hour rom-com 😬<br>No complaints. Not even one.<br>This is a binding contract 📜💕" },
-      { emoji: "🥲", title: "I'm running out of popups... 😅", body: "I had 47 of these prepared but you've<br>been very persistent with the No button 😂<br>I respect it honestly. But also... please? 🙏✨" },
-      { emoji: "💌", title: "Last one, I promise 🤞", body: "No more popups after this one.<br>Scout's honour 🫡<br>Just one tiny little date? 🌸<br>You won't regret it, I pinky promise 🤙💖" },
+      { emoji: "\u{1F622}", title: "Wait wait wait... \u{1F648}", body: "Did you mean to click that" + nameStr + "? \u{1F914}<br>Your mouse must have slipped!<br>I believe in accidents. Give me another chance? \u{1F97A}\u{1F495}" },
+      { emoji: "\u{1F62D}", title: "Noooo please!! \u{1F494}", body: "Okay okay I\u2019ll carry all the bags \u{1F6CD}\uFE0F<br>AND pay for everything \u{1F4B8}<br>AND pick up the tab at dessert too \u{1F370}<br>Still no" + nameStr + "? \u{1F630}" },
+      { emoji: "\u{1F436}", title: "Even my dog wants you to say yes \u{1F43E}", body: "He practiced his puppy eyes just for this moment \u{1F979}<br>He\u2019ll be SO disappointed if you say no again...<br>Don\u2019t break his tiny heart" + (name ? ', ' + name : '') + "! \u{1F415}\u{1F495}" },
+      { emoji: "\u{1F31F}", title: "The stars aligned just for us \u2728", body: "NASA confirmed: the universe sent a sign \u{1F52D}<br>Ignoring cosmic forces is illegal in 12 galaxies \u{1FA90}<br>Let\u2019s not cause an intergalactic incident \u{1F605}\u{1F680}" },
+      { emoji: "\u{1F355}", title: "Free pizza is involved \u{1F355}", body: "I probably should have mentioned this earlier" + nameStr + "...<br>The date includes unlimited pizza \u{1F355}\u{1F355}\u{1F355}<br>And garlic bread. Lots of it \u{1F9C4}<br>Reconsidering? \u{1F440}" },
+      { emoji: "\u{1F624}", title: "Okay final offer \u{1F91D}", body: "I\u2019ll watch your favourite movie \u{1F3AC}<br>Even if it\u2019s a 4-hour rom-com \u{1F62C}<br>No complaints. Not even one.<br>This is a binding contract \u{1F4DC}\u{1F495}" },
+      { emoji: "\u{1F972}", title: "I\u2019m running out of popups... \u{1F605}", body: "I had 47 of these prepared" + nameStr + " but you\u2019ve<br>been very persistent with the No button \u{1F602}<br>I respect it honestly. But also... please? \u{1F64F}\u2728" },
+      { emoji: "\u{1F48C}", title: "Last one, I promise \u{1F91E}", body: "No more popups after this one" + nameStr + ".<br>Scout\u2019s honour \u{1FAE1}<br>Just one tiny little date? \u{1F338}<br>You won\u2019t regret it, I pinky promise \u{1F919}\u{1F496}" },
     ];
 
     let noCount = 0;
@@ -236,9 +415,9 @@
     }
 
     // Floating hearts
-    (function() {
+    (function () {
       const bg = document.getElementById('heartsBg');
-      const emojis = ['💕','💖','💗','💓','🌸','✨','💘','🌹','🦋','🌷'];
+      const emojis = ['💕', '💖', '💗', '💓', '🌸', '✨', '💘', '🌹', '🦋', '🌷'];
       for (let i = 0; i < 18; i++) {
         const h = document.createElement('div');
         h.className = 'floating-heart';
@@ -259,7 +438,7 @@
       canvas.height = window.innerHeight;
       const ctx = canvas.getContext('2d');
       const particles = [];
-      const colors = ['#ff69b4','#ff1493','#ffb6c1','#ffd700','#ff6347','#9b59b6','#00bfff','#ff4500','#fff'];
+      const colors = ['#ff69b4', '#ff1493', '#ffb6c1', '#ffd700', '#ff6347', '#9b59b6', '#00bfff', '#ff4500', '#fff'];
 
       function Particle(x, y, color) {
         this.x = x; this.y = y; this.color = color;
@@ -268,7 +447,7 @@
         this.alpha = 1; this.radius = 3 + Math.random() * 2;
         this.gravity = 0.15;
       }
-      Particle.prototype.update = function() {
+      Particle.prototype.update = function () {
         this.x += this.vx; this.y += this.vy;
         this.vy += this.gravity; this.alpha -= 0.016;
       };
@@ -309,4 +488,5 @@
     }
   </script>
 </body>
+
 </html>
