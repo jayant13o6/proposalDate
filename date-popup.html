@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>💌 Important Message!</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffb3c6 0%, #ffd6e7 50%, #ffb3c6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      font-family: 'Tahoma', 'Arial', sans-serif;
+      font-size: 11px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hearts-bg {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; overflow: hidden; z-index: 0;
+    }
+    .floating-heart {
+      position: absolute;
+      animation: floatUp 6s linear infinite;
+      opacity: 0;
+    }
+    @keyframes floatUp {
+      0% { opacity: 0; transform: translateY(100vh) rotate(0deg); }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.3; }
+      100% { opacity: 0; transform: translateY(-80px) rotate(20deg); }
+    }
+    .window {
+      background: #c0c0c0;
+      border-top: 2px solid #ffffff;
+      border-left: 2px solid #ffffff;
+      border-right: 2px solid #808080;
+      border-bottom: 2px solid #808080;
+      box-shadow: 3px 3px 0px #000000;
+      min-width: 340px;
+      max-width: 400px;
+      width: 100%;
+      position: relative;
+      z-index: 10;
+      animation: popIn 0.2s ease-out;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.7); opacity: 0; }
+      80% { transform: scale(1.05); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .title-bar {
+      background: linear-gradient(to right, #c2006e, #ff69b4);
+      color: #ffffff;
+      padding: 3px 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: bold;
+      user-select: none;
+    }
+    .title-bar-text { display: flex; align-items: center; gap: 6px; }
+    .title-buttons { display: flex; gap: 2px; }
+    .title-btn {
+      width: 16px; height: 14px;
+      background: #c0c0c0;
+      border-top: 1px solid #ffffff;
+      border-left: 1px solid #ffffff;
+      border-right: 1px solid #808080;
+      border-bottom: 1px solid #808080;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; color: #000; cursor: pointer; font-weight: bold;
+    }
+    .window-body { padding: 16px 16px 14px; }
+    .message-area {
+      display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px;
+    }
+    .big-emoji { font-size: 42px; flex-shrink: 0; line-height: 1; }
+    .message-text { font-size: 12px; color: #000; line-height: 1.6; }
+    .message-text .title { font-weight: bold; font-size: 13px; color: #9b004e; margin-bottom: 5px; }
+    .divider {
+      height: 1px; background: #808080;
+      box-shadow: 0 1px 0 #ffffff; margin-bottom: 12px;
+    }
+    .button-row { display: flex; justify-content: center; gap: 10px; }
+    .win-btn {
+      min-width: 75px; padding: 4px 12px;
+      background: #c0c0c0;
+      border-top: 2px solid #ffffff;
+      border-left: 2px solid #ffffff;
+      border-right: 2px solid #808080;
+      border-bottom: 2px solid #808080;
+      font-family: 'Tahoma', 'Arial', sans-serif;
+      font-size: 11px; color: #000; cursor: pointer; text-align: center; outline: none;
+    }
+    .win-btn:active {
+      border-top: 2px solid #808080; border-left: 2px solid #808080;
+      border-right: 2px solid #ffffff; border-bottom: 2px solid #ffffff;
+      padding-top: 5px; padding-left: 13px;
+    }
+    .win-btn.yes-btn {
+      border: 2px solid #000; background: #ffe0f0;
+      box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #808080;
+    }
+    .win-btn.yes-btn:active {
+      box-shadow: inset 1px 1px 0 #808080, inset -1px -1px 0 #ffffff;
+    }
+
+    /* Celebration overlay */
+    .celebration {
+      display: none;
+      position: fixed; inset: 0; z-index: 20;
+      background: rgba(255,182,193,0.2);
+      align-items: center; justify-content: center;
+      flex-direction: column;
+    }
+    .celebration.show { display: flex; }
+    .celeb-window {
+      background: #c0c0c0;
+      border-top: 2px solid #ffffff; border-left: 2px solid #ffffff;
+      border-right: 2px solid #808080; border-bottom: 2px solid #808080;
+      box-shadow: 3px 3px 0 #000; min-width: 320px; max-width: 370px;
+      animation: popIn 0.3s ease-out;
+    }
+    .celeb-title {
+      background: linear-gradient(to right, #c2006e, #ff69b4);
+      color: #fff; padding: 3px 6px; font-weight: bold; font-size: 11px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .celeb-body { padding: 20px; text-align: center; }
+    .celeb-emoji { font-size: 44px; margin-bottom: 10px; animation: bounce 0.5s infinite alternate; }
+    @keyframes bounce { from { transform: scale(1); } to { transform: scale(1.15); } }
+    .celeb-text { font-size: 15px; font-weight: bold; color: #9b004e; margin-bottom: 6px; }
+    .celeb-sub { font-size: 11px; color: #555; margin-bottom: 16px; line-height: 1.7; }
+    .ok-btn {
+      padding: 5px 28px; background: #ffe0f0;
+      border-top: 2px solid #fff; border-left: 2px solid #fff;
+      border-right: 2px solid #808080; border-bottom: 2px solid #808080;
+      border: 2px solid #000;
+      font-size: 11px; font-family: 'Tahoma',sans-serif; cursor: pointer;
+      box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #808080;
+    }
+    .ok-btn:active {
+      border-top: 2px solid #808080; border-left: 2px solid #808080;
+      border-right: 2px solid #ffffff; border-bottom: 2px solid #ffffff;
+      box-shadow: inset 1px 1px 0 #808080, inset -1px -1px 0 #ffffff;
+    }
+
+    canvas#fw {
+      position: fixed; inset: 0; pointer-events: none; z-index: 15;
+      width: 100%; height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hearts-bg" id="heartsBg"></div>
+  <canvas id="fw"></canvas>
+
+  <div class="window" id="mainDialog">
+    <div class="title-bar">
+      <div class="title-bar-text">💌 Important Message!</div>
+      <div class="title-buttons"><div class="title-btn">✕</div></div>
+    </div>
+    <div class="window-body">
+      <div class="message-area">
+        <div class="big-emoji" id="dialogEmoji">🥺</div>
+        <div class="message-text">
+          <div class="title" id="dialogTitle">Will you go on a date with me? 💕</div>
+          <div id="dialogBody">I promise I'll be on my best behaviour! 🌹<br>We could get coffee, ice cream, stargaze...<br><br>Please say yes? 🙏✨</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="button-row">
+        <button class="win-btn yes-btn" onclick="sayYes()">Yes 💖</button>
+        <button class="win-btn" onclick="sayNo()">No 😐</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="celebration" id="celebration">
+    <div class="celeb-window">
+      <div class="celeb-title">
+        <span>🎉 YAY!!! 🎉</span>
+        <div class="title-btn" onclick="closeCeleb()">✕</div>
+      </div>
+      <div class="celeb-body">
+        <div class="celeb-emoji">🥳💖🎆</div>
+        <div class="celeb-text">She said YES!!!</div>
+        <div class="celeb-sub">This is literally the best day ever! 🌸🦋✨<br>Get ready for the most magical date! 💫🌹</div>
+        <button class="ok-btn" onclick="closeCeleb()">Woohoo! 🎊</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const noMessages = [
+      { emoji: "😢", title: "Wait wait wait... 🙈", body: "Did you mean to click that? 🤔<br>Your mouse must have slipped!<br>I believe in accidents. Give me another chance? 🥺💕" },
+      { emoji: "😭", title: "Noooo please!! 💔", body: "Okay okay I'll carry all the bags 🛍️<br>AND pay for everything 💸<br>AND pick up the tab at dessert too 🍰<br>Still no? 😰" },
+      { emoji: "🐶", title: "Even my dog wants you to say yes 🐾", body: "He practiced his puppy eyes just for this moment 🥹<br>He'll be SO disappointed if you say no again...<br>Don't break his tiny heart! 🐕💕" },
+      { emoji: "🌟", title: "The stars aligned just for us ✨", body: "NASA confirmed: the universe sent a sign 🔭<br>Ignoring cosmic forces is illegal in 12 galaxies 🪐<br>Let's not cause an intergalactic incident 😅🚀" },
+      { emoji: "🍕", title: "Free pizza is involved 🍕", body: "I probably should have mentioned this earlier...<br>The date includes unlimited pizza 🍕🍕🍕<br>And garlic bread. Lots of it 🧄<br>Reconsidering? 👀" },
+      { emoji: "😤", title: "Okay final offer 🤝", body: "I'll watch your favourite movie 🎬<br>Even if it's a 4-hour rom-com 😬<br>No complaints. Not even one.<br>This is a binding contract 📜💕" },
+      { emoji: "🥲", title: "I'm running out of popups... 😅", body: "I had 47 of these prepared but you've<br>been very persistent with the No button 😂<br>I respect it honestly. But also... please? 🙏✨" },
+      { emoji: "💌", title: "Last one, I promise 🤞", body: "No more popups after this one.<br>Scout's honour 🫡<br>Just one tiny little date? 🌸<br>You won't regret it, I pinky promise 🤙💖" },
+    ];
+
+    let noCount = 0;
+
+    function sayNo() {
+      const msg = noMessages[Math.min(noCount, noMessages.length - 1)];
+      noCount++;
+      document.getElementById('dialogEmoji').textContent = msg.emoji;
+      document.getElementById('dialogTitle').textContent = msg.title;
+      document.getElementById('dialogBody').innerHTML = msg.body;
+      const win = document.getElementById('mainDialog');
+      win.style.animation = 'none';
+      void win.offsetWidth;
+      win.style.animation = 'popIn 0.2s ease-out';
+    }
+
+    function sayYes() {
+      document.getElementById('mainDialog').style.display = 'none';
+      document.getElementById('celebration').classList.add('show');
+      launchFireworks();
+    }
+
+    function closeCeleb() {
+      document.getElementById('celebration').classList.remove('show');
+      document.getElementById('mainDialog').style.display = '';
+    }
+
+    // Floating hearts
+    (function() {
+      const bg = document.getElementById('heartsBg');
+      const emojis = ['💕','💖','💗','💓','🌸','✨','💘','🌹','🦋','🌷'];
+      for (let i = 0; i < 18; i++) {
+        const h = document.createElement('div');
+        h.className = 'floating-heart';
+        h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        h.style.left = (Math.random() * 95) + '%';
+        h.style.bottom = '0';
+        h.style.animationDelay = (Math.random() * 6) + 's';
+        h.style.animationDuration = (4 + Math.random() * 5) + 's';
+        h.style.fontSize = (12 + Math.random() * 18) + 'px';
+        bg.appendChild(h);
+      }
+    })();
+
+    // Fireworks
+    function launchFireworks() {
+      const canvas = document.getElementById('fw');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const ctx = canvas.getContext('2d');
+      const particles = [];
+      const colors = ['#ff69b4','#ff1493','#ffb6c1','#ffd700','#ff6347','#9b59b6','#00bfff','#ff4500','#fff'];
+
+      function Particle(x, y, color) {
+        this.x = x; this.y = y; this.color = color;
+        this.vx = (Math.random() - 0.5) * 9;
+        this.vy = (Math.random() - 0.5) * 9 - 2;
+        this.alpha = 1; this.radius = 3 + Math.random() * 2;
+        this.gravity = 0.15;
+      }
+      Particle.prototype.update = function() {
+        this.x += this.vx; this.y += this.vy;
+        this.vy += this.gravity; this.alpha -= 0.016;
+      };
+
+      function burst(x, y) {
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        for (let i = 0; i < 60; i++) particles.push(new Particle(x, y, color));
+      }
+
+      let shots = 0;
+      function autoShoot() {
+        if (shots < 22) {
+          burst(Math.random() * canvas.width, Math.random() * canvas.height * 0.65 + 20);
+          shots++;
+          setTimeout(autoShoot, 280);
+        }
+      }
+      autoShoot();
+
+      function loop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.update();
+          if (p.alpha <= 0) { particles.splice(i, 1); continue; }
+          ctx.save();
+          ctx.globalAlpha = p.alpha;
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+        if (particles.length > 0 || shots < 22) requestAnimationFrame(loop);
+        else ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      loop();
+    }
+  </script>
+</body>
+</html>
